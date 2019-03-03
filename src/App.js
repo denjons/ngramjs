@@ -2,45 +2,62 @@ import React, { Component } from 'react';
 import './App.css';
 import CorpusText from './corpus/components/CorpusText'
 import Corpus from './corpus/model/Corpus'
-import ResultList from './result/components/listItem'
+import ResultList from './result/components/list'
 import TextUtils from './utils/TextUtils';
 
 class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      words: []
+    };
+  }
 
   markovOrder = 2;
   wordCount = 7;
   wordLength = 10;
   corpus = null;
-  words = [];
-  state = {
-    text: ""
-  };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>[n]gram</h1>
+          <div>
+            <div>
+              <h1 className="App-title-n">[n]</h1>
+              <h1 className="App-title-gram">gram</h1>
+            </div>
+          </div>
         </header>
-        <CorpusText onChangeFunction={this.updateText}/> 
-        <button onClick={this.generateCorpus}>Generate</button>  
         <div>
-          <ResultList words={this.words}></ResultList>
+          <CorpusText onChangeFunction={this.updateText}/>
+        </div>
+        <button className='button-generate' onClick={this.generateCorpus}>Generate</button>  
+        <div>
+          <ResultList words={this.state.words}></ResultList>
         </div>
       </div>
     );
   }
-
+  
   generateWords = () => {
-    this.words = this.corpus.getMarkovChain().generateWords(this.wordCount + 100, this.wordLength);
-    console.log(TextUtils.sortWords(this.words, this.wordCount));
+    while(this.state.words.length > 0){
+      this.state.words.pop();
+    }
+    this.corpus.getMarkovChain().generateWords(this.wordCount + 100, this.wordLength)
+      .forEach(element => this.state.words.push(element));
+    this.setState({
+      words: TextUtils.takeLargestWords(this.state.words, this.wordCount)
+    });
+    console.log(this.state.words);
   }
 
   generateCorpus = () => {
     console.log("generatoing text");
     console.log(this.state.text);
     this.corpus = new Corpus(this.state.text, this.markovOrder);
-    this.corpus.generateCorpus();
+    this.corpus.generateLetterCorpus();
     this.generateWords();
 
   }

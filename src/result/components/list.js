@@ -1,16 +1,32 @@
 import React, {Component} from 'react';
-import {ListItem} from './listItem'
+import './list.css'
 
-class ResultList extends Comment {
+class ResultList extends Component {
+
+    constructor(props) {
+        super(props);
+        var words = props.words;
+        this.state = {
+          words: words,
+        };
+      }
+
+    onOver = (event) => {
+        console.log(this.state.words);
+        this.setState((oldState) => ({
+           words: oldState.words 
+        }));
+    }
     
     render(){
         return (
-            <ul>
-                {this.props.words.map((word) =>
-                <ListItem key={word}
-                            value={word} />
+            <div className="list-container">
+            <ul className="list">
+                {this.state.words.map((word) =>
+                <li className='listItem' key={word}>{word}</li>
                 )}
-            </ul>);
+            </ul>
+            </div>);
     }
 }
 

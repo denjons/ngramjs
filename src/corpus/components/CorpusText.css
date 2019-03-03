@@ -1,0 +1,10 @@
+.corpus-text{
+    border-style:none;
+    font-size: 16px;
+    width:60%;
+    text-align: center;
+}
+
+.corpus-text:focus, input:focus{
+    outline: none;
+}
