@@ -35,6 +35,15 @@
   font-size: 20px;
 }
 
+.settings-container{
+  margin: 10px 5px 10px 5px;
+}
+
+.settings-input-word-length{ 
+  border: none;
+  margin: 10px 5px 10px 5px;
+}
+
 .button-generate{
   background-color: #323635;
   color: #ffffff;

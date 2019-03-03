@@ -10,14 +10,13 @@ class MarkovChain{
     addNode = (node) => {
         
         if(this.nodeChain.get(node) == null){
-            this.nodeChain.set(node, new Map());
+            this.nodeChain.set(node, []);
         }
 
         if(this.isNewWord()){
             this.startNodes.push(node);
         }else{
-            var rating = (this.workingSet.get(node) || 0) + 1;
-            this.workingSet.set(node, rating);
+            this.workingSet.push(node);
         }
 
         this.workingSet = this.nodeChain.get(node);
@@ -32,32 +31,36 @@ class MarkovChain{
         this.workingSet = null;
     }
 
+    /**
+     * Generates a list of words from corpus
+     */
     generateWords = (count, length) => {
         var words = [];
         for(var i = 0; i < count; i++){
-            var startNode = this.genarateStartNode();
+            var startNode = this.getRandomElementOf(this.startNodes);
             words.push(this.generateWord(length - this.markovOrder, startNode, startNode));
         }
         return words;
     }
 
-
-    genarateStartNode = () => {
-        return this.startNodes[Math.floor((this.startNodes.length) * Math.random())];
-    }
-
+    /**
+     * Sub-routine for generate words
+     */
     generateWord = (length, node, word) => {
         if (length <= 0){
             return word;
         }
         var nextNodes = this.nodeChain.get(node);
-        if(nextNodes == null || Array.from(nextNodes.keys()).length === 0){
+        if(nextNodes == null || nextNodes.length === 0){
             return word;
         }
-        var entries = Array.from(nextNodes.keys());
-        var nextNode = entries[Math.round((entries.length - 1) * Math.random())];
+        var nextNode = this.getRandomElementOf(nextNodes);
         word = word.concat(nextNode);
         return this.generateWord(length - this.markovOrder, nextNode, word)
+    }
+
+    getRandomElementOf(list){
+        return list[Math.round((list.length - 1) * Math.random())];
     }
 }
 
