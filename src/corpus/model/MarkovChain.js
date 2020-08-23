@@ -8,7 +8,6 @@ class MarkovChain{
     }
     
     addNode = (node) => {
-        
         if(this.nodeChain.get(node) == null){
             this.nodeChain.set(node, []);
         }
@@ -18,9 +17,7 @@ class MarkovChain{
         }else{
             this.workingSet.push(node);
         }
-
         this.workingSet = this.nodeChain.get(node);
-
     }
 
     isNewWord = () => {

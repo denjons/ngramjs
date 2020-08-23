@@ -34,7 +34,7 @@ class App extends Component {
           <CorpusText onChangeFunction={this.updateText}/>
         </div>
         <div className="settings-container">
-          <label for="input-word-length" >Word length</label>
+          <label htmlFor="input-word-length" >Word length</label>
           <input className="settings-input-word-length" name="input-word-length" id="input-word-length" type="number" value={this.state.wordLength} max="20" min="3" onChange={this.changeWordLength} />
         </div>
         <div>
