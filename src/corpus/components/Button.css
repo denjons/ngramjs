@@ -1,11 +1,12 @@
-.button-generate{
-    background-color: #323635;
-    color: #ffffff;
-    font-size: 16px;
-    padding:5px 20px 4px 20px;
-    border-radius: 10px;
-  }
-  
-  .button-generate:hover{
-    cursor: pointer;
-  }
+.button-generate {
+  background-color: #323635;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 5px 20px 4px 20px;
+  border-radius: 10px;
+}
+
+.button-generate:hover {
+  cursor: pointer;
+}
