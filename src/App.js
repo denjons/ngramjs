@@ -92,12 +92,9 @@ class App extends Component {
     this.setState({
       words: TextUtils.takeLargestWords(this.state.words, this.wordCount),
     });
-    console.log(this.state.words);
   };
 
   generateCorpus = () => {
-    console.log("generatoing text");
-    console.log(this.state.text);
     this.corpus = new Corpus(this.state.text, this.markovOrder);
     this.corpus.generateLetterCorpus();
     this.generateWords();
@@ -109,7 +106,6 @@ class App extends Component {
       words: oldState.words,
       text: val,
     }));
-    console.log(this.state.text);
   };
 }
 

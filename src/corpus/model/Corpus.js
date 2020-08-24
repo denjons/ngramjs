@@ -1,64 +1,55 @@
-import MarkovChain from './MarkovChain';
+import MarkovChain from "./MarkovChain";
 
-class Corpus{
+class Corpus {
+  constructor(text, markovOrder) {
+    this.text = text;
+    this.markovOrder = markovOrder;
+    this.markovChain = new MarkovChain(markovOrder);
+  }
 
-    constructor(text, markovOrder){
-        this.text = text;
-        this.markovOrder = markovOrder;
-        this.markovChain = new MarkovChain(markovOrder);
-    }
-
-    /**
-     * Generate corpus for sentences
-     */
-    generateWordCorpus = () => {
-        // should be replaced with something like .split('\.|!|\?')
-        this.text.split('. ')
-            .flatMap(elm => elm.split('! '))
-            .flatMap(elm => elm.split('? '))
-            .forEach(elm => {
-                console.log("elm: "+elm);
-                elm.trim().split(' ')
-                    .forEach(node => this.markovChain.addNode(node));
-                this.markovChain.startNewWord();
-            });
-             
-    }
-
-    /**
-     * Generate corpus for words
-     */
-    generateLetterCorpus = () => {
-        this.text.split(' ')
-            .filter(elm => elm.length >= this.markovOrder)
-            .forEach(elm => this.splitWord(elm));
-        console.log(this.markovChain);
-    }
-
-
-    /**
-     * Sub-routine for word corpus
-     */
-    splitWord = (word) => {
-        // Should be replaced with split string 
-        // into array and add each to markovChain
-        while(word.length > 0){
-            var node = "";
-            if(word.length >= this.markovOrder){
-                node = word.slice(0, this.markovOrder);
-                word = word.slice(this.markovOrder, word.length);
-            }else{
-                node = word;
-                word = "";
-            }
-            this.markovChain.addNode(node);
-        }
+  /**
+   * Generate corpus for sentences
+   */
+  generateWordCorpus = () => {
+    this.text
+      .split(" ")
+      .map((s) => s.replaceAll("/W/g", ""))
+      .filter((s) => s.length() > this.markovOrder)
+      .forEach((elm) => {
+        console.log("elm: " + elm);
+        this.markovChain.addNode(elm.trim());
         this.markovChain.startNewWord();
-    }
+      });
+  };
 
-    getMarkovChain = () => {
-        return this.markovChain;
+  /**
+   * Generate corpus for words
+   */
+  generateLetterCorpus = () => {
+    this.text
+      .split(" ")
+      .map((s) => s.replace(/[\W_]+/g, "").trim())
+      .filter((elm) => elm.length >= this.markovOrder)
+      .forEach((elm) => this.splitWord(elm));
+    console.log(this.markovChain);
+  };
+
+  /**
+   * Sub-routine for word corpus
+   */
+  splitWord = (word) => {
+    let pos = 0;
+    while (pos < word.length) {
+      let range = Math.min(word.length - pos, this.markovOrder);
+      this.markovChain.addNode(word.substring(pos, pos + range));
+      pos += this.markovOrder;
     }
+    this.markovChain.startNewWord();
+  };
+
+  getMarkovChain = () => {
+    return this.markovChain;
+  };
 }
 
 export default Corpus;
