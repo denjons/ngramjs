@@ -1,12 +1,6 @@
 import MarkovChain from "./MarkovChain";
 
 class Corpus {
-  constructor(text, markovOrder) {
-    this.text = text;
-    this.markovOrder = markovOrder;
-    this.markovChain = new MarkovChain(markovOrder);
-  }
-
   /**
    * Generate corpus for sentences
    */
@@ -24,30 +18,30 @@ class Corpus {
   /**
    * Generate corpus for words
    */
-  generateLetterCorpus = () => {
-    this.text
+  generateLetterCorpus = (text, markovOrder) => {
+    let markovChain = new MarkovChain(markovOrder);
+    text
       .split(" ")
       .map((s) => s.replace(/[\W_]+/g, "").trim())
-      .filter((elm) => elm.length >= this.markovOrder)
-      .forEach((elm) => this.splitWord(elm));
+      .filter((elm) => elm.length >= markovOrder)
+      .forEach((elm) => this.splitWord(elm, markovOrder, markovChain));
+    return markovChain;
   };
 
   /**
    * Sub-routine for word corpus
    */
-  splitWord = (word) => {
+  splitWord = (word, markovOrder, markovChain) => {
     let pos = 0;
     while (pos < word.length) {
-      let range = Math.min(word.length - pos, this.markovOrder);
-      this.markovChain.addNode(word.substring(pos, pos + range));
-      pos += this.markovOrder;
+      let range = Math.min(word.length - pos, markovOrder);
+      markovChain.addNode(word.substring(pos, pos + range));
+      pos += markovOrder;
     }
-    this.markovChain.startNewWord();
-  };
-
-  getMarkovChain = () => {
-    return this.markovChain;
+    markovChain.startNewWord();
   };
 }
 
-export default Corpus;
+const corpus = new Corpus();
+
+export default corpus;

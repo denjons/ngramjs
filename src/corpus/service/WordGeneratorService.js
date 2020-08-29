@@ -19,16 +19,11 @@ class WordGeneratorService {
 
   onGenerateWords = (text) => {
     console.info("onGenerateWords");
-    let corpus = new Corpus(text, this.config.markovOrder);
-    corpus.generateLetterCorpus();
-    let marovChain = corpus.getMarkovChain();
-    console.log(marovChain);
-    let words = marovChain.generateWords(
-      this.config.wordCount + 100,
-      this.config.wordLength
-    );
+    let words = Corpus.generateLetterCorpus(
+      text,
+      this.config.markovOrder
+    ).generateWords(this.config.wordCount + 100, this.config.wordLength);
     let topWords = TextUtils.takeLargestWords(words, this.config.wordCount);
-    console.info(words);
     generateResultSubject.notify(topWords);
   };
 }
