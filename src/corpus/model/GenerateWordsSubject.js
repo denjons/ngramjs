@@ -1,4 +1,4 @@
-class ResultListSubject {
+class GenerateWordsSubject {
   constructor() {
     this.observers = new Map();
   }
@@ -16,6 +16,6 @@ class ResultListSubject {
   }
 }
 
-const resultListSubject = new ResultListSubject();
+const generateWordsSubject = new GenerateWordsSubject();
 
-export default resultListSubject;
+export default generateWordsSubject;

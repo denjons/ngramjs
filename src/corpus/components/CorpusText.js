@@ -1,18 +1,38 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "./CorpusText.css";
+import generateClickEventSubject from "../model/GenerateClickEventSubject";
+import generateWordsSubject from "../model/GenerateWordsSubject";
 
-class CorpusText extends Component {
-  render() {
-    return (
-      <textarea
-        placeholder="Enter corpus text here ..."
-        className="corpus-text col-12"
-        onChange={this.props.onChangeFunction}
-        rows="10"
-        cols="50"
-      />
-    );
-  }
+function CorpusText() {
+  const [currentText, setCurrentText] = useState("");
+
+  useEffect(() => {
+    generateClickEventSubject.attach(onGenerateButtonClicked);
+    return () => {
+      generateClickEventSubject.detach(onGenerateButtonClicked);
+    };
+  });
+
+  const onChanged = (text) => {
+    setCurrentText(text);
+  };
+
+  const onGenerateButtonClicked = (event) => {
+    console.info("onGenerateButtonClicked");
+    if (currentText.length > 0) {
+      generateWordsSubject.notify(currentText);
+    }
+  };
+
+  return (
+    <textarea
+      placeholder="Enter corpus text here ..."
+      className="corpus-text col-12"
+      onChange={(e) => onChanged(e.target.value)}
+      rows="10"
+      cols="50"
+    />
+  );
 }
 
 export default CorpusText;

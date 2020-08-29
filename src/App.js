@@ -1,25 +1,50 @@
 import React, { Component } from "react";
 import "./App.css";
 import CorpusText from "./corpus/components/CorpusText";
-import Corpus from "./corpus/model/Corpus";
 import ResultList from "./result/components/ResultList";
 import SavedResultList from "./result/components/SavedResultList";
-import TextUtils from "./utils/TextUtils";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import generateClickEventSubject from "./corpus/model/GenerateClickEventSubject";
+import configurationEventSubject from "./corpus/model/ConfigurationEventSubject";
+import WordGeneratorService from "./corpus/service/WordGeneratorService";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      words: [],
       wordLength: 7,
+      markovOrder: 2,
+      wordCount: 10,
     };
+
+    this.WordGeneratorService = new WordGeneratorService(this.getConfig());
   }
 
-  markovOrder = 2;
-  wordCount = 10;
-  corpus = null;
+  onGenerateButtonClicked(event) {
+    console.info("clicked");
+    generateClickEventSubject.notify(event);
+  }
+
+  changeWordLength = (elm) => {
+    var newValue = elm.target.value;
+    if (newValue <= 20 && newValue >= 3) {
+      this.setState((oldState) => ({
+        wordLength: newValue,
+        markovOrder: oldState.markovOrder,
+        wordCount: oldState.wordCount,
+      }));
+      configurationEventSubject.notify(this.getConfig());
+    }
+  };
+
+  getConfig = () => {
+    return {
+      wordLength: this.state.wordLength,
+      markovOrder: this.state.markovOrder,
+      wordCount: this.state.wordCount,
+    };
+  };
 
   render() {
     return (
@@ -51,7 +76,7 @@ class App extends Component {
           <div className="col-12 col-mid-2 col-lg-2">
             <button
               className="button-generate col-12"
-              onClick={this.generateCorpus}
+              onClick={(e) => this.onGenerateButtonClicked(e)}
             >
               Generate
             </button>
@@ -59,55 +84,16 @@ class App extends Component {
         </Row>
         <Row className="justify-content-center">
           <div className="col-12 col-mid-3 col-lg-3">
-            <ResultList words={this.state.words}></ResultList>
-            <SavedResultList></SavedResultList>
+            <ResultList />
+            <SavedResultList />
           </div>
           <div className="col-12 mol-mid-7 col-lg-7">
-            <CorpusText onChangeFunction={this.updateText} />
+            <CorpusText />
           </div>
         </Row>
       </Container>
     );
   }
-
-  changeWordLength = (elm) => {
-    var newValue = elm.target.value;
-    console.log("New value:" + newValue);
-    if (newValue <= 20 && newValue >= 3) {
-      this.setState((oldState) => ({
-        words: oldState.words,
-        wordLength: newValue,
-      }));
-    }
-  };
-
-  generateWords = () => {
-    while (this.state.words.length > 0) {
-      this.state.words.pop();
-    }
-
-    this.corpus
-      .getMarkovChain()
-      .generateWords(this.wordCount + 100, this.state.wordLength)
-      .forEach((element) => this.state.words.push(element));
-    this.setState({
-      words: TextUtils.takeLargestWords(this.state.words, this.wordCount),
-    });
-  };
-
-  generateCorpus = () => {
-    this.corpus = new Corpus(this.state.text, this.markovOrder);
-    this.corpus.generateLetterCorpus();
-    this.generateWords();
-  };
-
-  updateText = (event) => {
-    var val = event.target.value;
-    this.setState((oldState) => ({
-      words: oldState.words,
-      text: val,
-    }));
-  };
 }
 
 export default App;

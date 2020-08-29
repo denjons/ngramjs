@@ -16,7 +16,6 @@ class Corpus {
       .map((s) => s.replaceAll("/W/g", ""))
       .filter((s) => s.length() > this.markovOrder)
       .forEach((elm) => {
-        console.log("elm: " + elm);
         this.markovChain.addNode(elm.trim());
         this.markovChain.startNewWord();
       });
@@ -31,7 +30,6 @@ class Corpus {
       .map((s) => s.replace(/[\W_]+/g, "").trim())
       .filter((elm) => elm.length >= this.markovOrder)
       .forEach((elm) => this.splitWord(elm));
-    console.log(this.markovChain);
   };
 
   /**

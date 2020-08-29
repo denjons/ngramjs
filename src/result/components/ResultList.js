@@ -1,41 +1,45 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
+import generateResultSubject from "../../corpus/model/GenerateResultSubject";
 import resultListSubject from "../model/ResultListSubject";
 import "./ResultList.css";
 
-class ResultList extends Component {
-  constructor(props) {
-    super(props);
-    var words = props.words;
-    this.state = {
-      words: words,
-    };
-  }
+function ResultList() {
+  const [currentWords, setCurrentWords] = useState([]);
 
-  clicked = (word) => {
-    console.log(word);
-    resultListSubject.notify(word);
-    //  this.setState((oldState) => ({
-    //    words: oldState.words.filter((w) => w !== word),
-    //  }));
+  useEffect(() => {
+    generateResultSubject.attach(onWordsGenerated);
+    console.log(generateResultSubject);
+    return () => {
+      generateResultSubject.detach(onWordsGenerated);
+    };
+  });
+
+  const onWordsGenerated = (words) => {
+    console.info("onWordsGenerated");
+    setCurrentWords(words);
   };
 
-  render() {
-    return (
-      <div className="list-container col-12">
-        <ul className="list">
-          {this.state.words.map((word) => (
-            <li
-              onClick={(e) => this.clicked(e.target.innerText)}
-              className="listItem"
-              key={word}
-            >
-              {word}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+  const clicked = (word) => {
+    console.log(word);
+    resultListSubject.notify(word);
+    setCurrentWords(currentWords.filter((w) => w !== word));
+  };
+
+  return (
+    <div className="list-container col-12">
+      <ul className="list">
+        {currentWords.map((word) => (
+          <li
+            onClick={(e) => clicked(e.target.innerText)}
+            className="listItem"
+            key={word}
+          >
+            {word}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default ResultList;
