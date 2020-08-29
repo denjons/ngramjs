@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import CorpusText from "./corpus/components/CorpusText";
 import Corpus from "./corpus/model/Corpus";
-import ResultList from "./result/components/list";
+import ResultList from "./result/components/ResultList";
+import SavedResultList from "./result/components/SavedResultList";
 import TextUtils from "./utils/TextUtils";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -57,13 +58,12 @@ class App extends Component {
           </div>
         </Row>
         <Row className="justify-content-center">
-          <div className="col-12 mol-mid-10 col-lg-10">
-            <CorpusText onChangeFunction={this.updateText} />
-          </div>
-        </Row>
-        <Row>
-          <div>
+          <div className="col-12 col-mid-3 col-lg-3">
             <ResultList words={this.state.words}></ResultList>
+            <SavedResultList></SavedResultList>
+          </div>
+          <div className="col-12 mol-mid-7 col-lg-7">
+            <CorpusText onChangeFunction={this.updateText} />
           </div>
         </Row>
       </Container>
@@ -85,6 +85,7 @@ class App extends Component {
     while (this.state.words.length > 0) {
       this.state.words.pop();
     }
+
     this.corpus
       .getMarkovChain()
       .generateWords(this.wordCount + 100, this.state.wordLength)

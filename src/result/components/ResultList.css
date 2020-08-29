@@ -1,0 +1,17 @@
+.listItem {
+  list-style: none;
+  text-align: center;
+  padding: 2px 5px 2px 5px;
+  margin: 0px;
+  border: 1px dashed chocolate;
+}
+
+.list {
+  padding: 0px;
+  list-style: none;
+  margin: 0px;
+}
+
+.list-container {
+  margin: 10px 0px 10px 0px;
+}

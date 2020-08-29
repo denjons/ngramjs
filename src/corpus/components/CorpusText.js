@@ -8,7 +8,7 @@ class CorpusText extends Component {
         placeholder="Enter corpus text here ..."
         className="corpus-text col-12"
         onChange={this.props.onChangeFunction}
-        rows="4"
+        rows="10"
         cols="50"
       />
     );
