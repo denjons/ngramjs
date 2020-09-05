@@ -12,8 +12,8 @@ body {
   text-align: center;
 }
 
-.App-header {
-  min-height: 50vh;
+.app-header {
+  min-height: 60vh;
   color: #323635;
   background-image: linear-gradient(
     to bottom right,
@@ -38,6 +38,10 @@ body {
   }
 }
 
+.app-header-content {
+  height: 100%;
+}
+
 .glow {
   color: #fff;
   -webkit-animation: glow 10s ease-in-out infinite alternate;
@@ -58,13 +62,13 @@ body {
   }
 }
 
-.App-title-n {
+.app-title-n {
   font-size: 4cm;
   padding: 0px;
   margin: 12px;
 }
 
-.App-title-gram {
+.app-title-gram {
   font-size: 17mm;
   letter-spacing: 6px;
   line-height: 0px;
@@ -73,17 +77,21 @@ body {
   margin-left: 4mm;
 }
 
-.App-subtitle {
+.app-subtitle {
   font-size: 20px;
 }
 
 .corpus-container {
   padding-top: 1cm;
   color: white;
+  height: 75%;
 }
 
 .banner {
-  background-color: #3b3b3b;
+  background-color: transparent;
+  text-align: center;
+  min-height: 10%;
+  height: 10%;
 }
 
 .settings-container {
@@ -93,26 +101,6 @@ body {
 .settings-input-word-length {
   border: none;
   margin: 10px 5px 10px 5px;
-}
-
-.button-generate:hover {
-  cursor: pointer;
-  color: rgb(149, 209, 191);
-}
-
-.button-generate {
-  background-color: #323635;
-  display: block;
-  widows: 100%;
-  height: 100%;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 16px;
-  border-style: none;
-}
-
-.button-generate:hover {
-  cursor: pointer;
 }
 
 .result-container {

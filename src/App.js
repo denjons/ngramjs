@@ -45,39 +45,39 @@ class App extends Component {
     return (
       <Container fluid>
         <Row className="header-row">
-          <header className="App-header col-12">
-            <Row className="justify-content-left">
-              <div className="offset-xs-4 col-xs-4 offset-sm-4 col-sm-4 offset-md-0 col-md-4 offset-lg-0 col-lg-4 offset-xl-0 col-xl-4">
+          <header className="app-header col-12">
+            <Row className="app-header-content justify-content-left">
+              <div className="d-none d-md-block offset-xs-4 col-xs-4 offset-sm-4 col-sm-4 offset-md-0 col-md-4 offset-lg-0 col-lg-4 offset-xl-0 col-xl-4">
                 <Row className="justify-content-center">
                   <div className="title-container col-12">
-                    <h1 className="App-title-n glow">[n]</h1>
-                    <h1 className="App-title-gram glow">gram</h1>
+                    <h1 className="app-title-n glow">[n]</h1>
+                    <h1 className="app-title-gram glow">gram</h1>
                   </div>
                 </Row>
               </div>
               <div className="corpus-container col-xs-12 col-sm-12 offset-md-1 col-md-6 offset-lg-1 col-lg-6 offset-xl-0 col-xl-7">
                 <CorpusText />
               </div>
+              <Row className="banner col-12 justify-content-left">
+                <div className="settings-container d-none d-md-block col-12 col-md-5 col-lg-5">
+                  <label htmlFor="input-word-length">Word length</label>
+                  <input
+                    className="settings-input-word-length"
+                    name="input-word-length"
+                    id="input-word-length"
+                    type="number"
+                    value={this.state.wordLength}
+                    max="20"
+                    min="3"
+                    onChange={this.changeWordLength}
+                  />
+                </div>
+                <div className="col-12 col-md-4 col-lg-4 col-xl-2">
+                  <GenerateButton />
+                </div>
+              </Row>
             </Row>
           </header>
-        </Row>
-        <Row className="banner justify-content-left">
-          <div className="settings-container col-12 col-md-5 col-lg-5">
-            <label htmlFor="input-word-length">Word length</label>
-            <input
-              className="settings-input-word-length"
-              name="input-word-length"
-              id="input-word-length"
-              type="number"
-              value={this.state.wordLength}
-              max="20"
-              min="3"
-              onChange={this.changeWordLength}
-            />
-          </div>
-          <div className="col-12 col-md-2 col-lg-2">
-            <GenerateButton />
-          </div>
         </Row>
         <Row className="result-container justify-content-center">
           <div className="col-12 offset-md-1 col-md-3 offset-lg-1 col-lg-3 offset-xl-0 col-xl-3">
