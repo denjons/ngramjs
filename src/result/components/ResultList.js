@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import generateResultSubject from "../../corpus/model/GenerateResultSubject";
 import resultListSubject from "../model/ResultListSubject";
 import "./ResultList.css";
+import Row from "react-bootstrap/Row";
 
 function ResultList() {
   const [currentWords, setCurrentWords] = useState([]);
@@ -26,19 +27,17 @@ function ResultList() {
   };
 
   return (
-    <div className="list-container col-12">
-      <ul className="list">
-        {currentWords.map((word) => (
-          <li
-            onClick={(e) => clicked(e.target.innerText)}
-            className="listItem"
-            key={word}
-          >
-            {word}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Row>
+      {currentWords.map((word) => (
+        <div
+          className="listItem span-4"
+          onClick={(e) => clicked(e.target.innerText)}
+          key={word}
+        >
+          {word}
+        </div>
+      ))}
+    </Row>
   );
 }
 

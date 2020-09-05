@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
 import CorpusText from "./corpus/components/CorpusText";
+import GenerateButton from "./corpus/components/GenerateButton";
 import ResultList from "./result/components/ResultList";
 import SavedResultList from "./result/components/SavedResultList";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import generateClickEventSubject from "./corpus/model/GenerateClickEventSubject";
 import configurationEventSubject from "./corpus/model/ConfigurationEventSubject";
 import WordGeneratorService from "./corpus/service/WordGeneratorService";
 
@@ -19,11 +19,6 @@ class App extends Component {
     };
 
     this.WordGeneratorService = new WordGeneratorService(this.getConfig());
-  }
-
-  onGenerateButtonClicked(event) {
-    console.info("clicked");
-    generateClickEventSubject.notify(event);
   }
 
   changeWordLength = (elm) => {
@@ -49,18 +44,25 @@ class App extends Component {
   render() {
     return (
       <Container fluid>
-        <Row>
+        <Row className="header-row">
           <header className="App-header col-12">
-            <div>
-              <div>
-                <h1 className="App-title-n glow">[n]</h1>
-                <h1 className="App-title-gram glow">gram</h1>
+            <Row className="justify-content-left">
+              <div className="offset-xs-4 col-xs-4 offset-sm-4 col-sm-4 offset-md-0 col-md-4 offset-lg-0 col-lg-4 offset-xl-0 col-xl-4">
+                <Row className="justify-content-center">
+                  <div className="title-container col-12">
+                    <h1 className="App-title-n glow">[n]</h1>
+                    <h1 className="App-title-gram glow">gram</h1>
+                  </div>
+                </Row>
               </div>
-            </div>
+              <div className="corpus-container col-xs-12 col-sm-12 offset-md-1 col-md-6 offset-lg-1 col-lg-6 offset-xl-0 col-xl-7">
+                <CorpusText />
+              </div>
+            </Row>
           </header>
         </Row>
         <Row className="banner justify-content-left">
-          <div className="settings-container col-12 col-mid-5 col-lg-5">
+          <div className="settings-container col-12 col-md-5 col-lg-5">
             <label htmlFor="input-word-length">Word length</label>
             <input
               className="settings-input-word-length"
@@ -73,22 +75,16 @@ class App extends Component {
               onChange={this.changeWordLength}
             />
           </div>
-          <div className="col-12 col-mid-2 col-lg-2">
-            <button
-              className="button-generate col-12"
-              onClick={(e) => this.onGenerateButtonClicked(e)}
-            >
-              Generate
-            </button>
+          <div className="col-12 col-md-2 col-lg-2">
+            <GenerateButton />
           </div>
         </Row>
-        <Row className="justify-content-center">
-          <div className="col-12 col-mid-3 col-lg-3">
-            <ResultList />
+        <Row className="result-container justify-content-center">
+          <div className="col-12 offset-md-1 col-md-3 offset-lg-1 col-lg-3 offset-xl-0 col-xl-3">
             <SavedResultList />
           </div>
-          <div className="col-12 mol-mid-7 col-lg-7">
-            <CorpusText />
+          <div className="col-12 offset-md-1 col-md-7 offset-lg-1 col-lg-7 offset-xl-1 col-xl-7">
+            <ResultList />
           </div>
         </Row>
       </Container>

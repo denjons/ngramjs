@@ -1,10 +1,20 @@
 .corpus-text {
+  color: #fff;
   border-style: none;
   font-size: 16px;
   text-align: left;
   margin: 10px 0px 10px 0px;
   background: transparent;
   resize: none;
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #fff;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #fff;
 }
 
 .corpus-text:focus,
