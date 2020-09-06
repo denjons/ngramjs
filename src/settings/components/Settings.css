@@ -1,0 +1,30 @@
+.settings-slider {
+  -webkit-appearance: none;
+  margin: 10px 5px 10px 5px;
+  background: #fff;
+  width: 100%;
+  height: 20px;
+  border-radius: 8px;
+}
+
+.settings-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: rgb(149, 209, 191);
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.settings-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: rgb(149, 209, 191);
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.settings-slider:hover {
+  cursor: pointer;
+}

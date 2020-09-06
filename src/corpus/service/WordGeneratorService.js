@@ -14,7 +14,7 @@ class WordGeneratorService {
   }
 
   onReconfigure = (config) => {
-    this.config = config;
+    this.config[config.property] = config.value;
   };
 
   onGenerateWords = (text) => {

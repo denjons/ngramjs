@@ -6,9 +6,9 @@ import ResultList from "./result/components/ResultList";
 import SavedResultList from "./result/components/SavedResultList";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import configurationEventSubject from "./corpus/model/ConfigurationEventSubject";
 import WordGeneratorService from "./corpus/service/WordGeneratorService";
 import { Navbar, NavbarBrand } from "react-bootstrap";
+import WordLengthSetting from "./settings/components/WordLengthSetting";
 
 class App extends Component {
   constructor(props) {
@@ -21,18 +21,6 @@ class App extends Component {
 
     this.WordGeneratorService = new WordGeneratorService(this.getConfig());
   }
-
-  changeWordLength = (elm) => {
-    var newValue = elm.target.value;
-    if (newValue <= 20 && newValue >= 3) {
-      this.setState((oldState) => ({
-        wordLength: newValue,
-        markovOrder: oldState.markovOrder,
-        wordCount: oldState.wordCount,
-      }));
-      configurationEventSubject.notify(this.getConfig());
-    }
-  };
 
   getConfig = () => {
     return {
@@ -65,21 +53,11 @@ class App extends Component {
                 <CorpusText />
               </div>
             </Row>
-            <Row className="bottom-banner  col-12 justify-content-left">
-              <div className="settings-container d-none d-md-block col-12 col-md-5 col-lg-5">
-                <label htmlFor="input-word-length">Word length</label>
-                <input
-                  className="settings-input-word-length"
-                  name="input-word-length"
-                  id="input-word-length"
-                  type="number"
-                  value={this.state.wordLength}
-                  max="20"
-                  min="3"
-                  onChange={this.changeWordLength}
-                />
+            <Row className="bottom-banner col-12 justify-content-left">
+              <div className="settings-container d-none d-md-block col-12 offset-md-2 col-md-2">
+                <WordLengthSetting />
               </div>
-              <div className="col-12 col-md-4 col-lg-4 col-xl-2">
+              <div className="col-12 col-md-4 col-lg-4 offset-xl-1 col-xl-2">
                 <GenerateButton />
               </div>
             </Row>
