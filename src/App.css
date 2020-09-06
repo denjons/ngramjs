@@ -1,11 +1,9 @@
 body {
   background-color: #ececec;
-  color: #323635;
 }
 
 * {
   font-family: Arial, Helvetica, sans-serif;
-  color: #323635;
 }
 
 .header-row {
@@ -18,24 +16,9 @@ body {
   background-image: linear-gradient(
     to bottom right,
     rgb(149, 209, 191),
-    #e4b2cb,
-    rgb(149, 209, 191)
+    #e4b2cb
   );
-  background-size: 400% 400%;
-  animation-name: header-background;
-  animation: header-background 60s ease infinite;
-}
-
-@keyframes header-background {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  background-size: 120% 120%;
 }
 
 .top-banner {
@@ -92,44 +75,6 @@ body {
 .corpus-container {
   color: white;
   height: 75%;
-}
-
-.settings-container {
-  margin: 10px 5px 10px 5px;
-}
-.settings-word-length-slider-lable {
-  color: #fff;
-}
-
-.settings-word-length-slider {
-  -webkit-appearance: none;
-  margin: 10px 5px 10px 5px;
-  background: #fff;
-  width: 100%;
-  height: 20px;
-  border-radius: 8px;
-}
-
-.settings-word-length-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background: rgb(149, 209, 191);
-  cursor: pointer;
-  border-radius: 8px;
-}
-
-.settings-word-length-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background: rgb(149, 209, 191);
-  cursor: pointer;
-  border-radius: 8px;
-}
-
-.settings-word-length-slider:hover {
-  cursor: pointer;
 }
 
 .result-row {

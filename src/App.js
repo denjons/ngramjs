@@ -13,29 +13,20 @@ import WordLengthSetting from "./settings/components/WordLengthSetting";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+
+    this.WordGeneratorService = new WordGeneratorService({
       wordLength: 7,
       markovOrder: 2,
       wordCount: 10,
-    };
-
-    this.WordGeneratorService = new WordGeneratorService(this.getConfig());
+    });
   }
-
-  getConfig = () => {
-    return {
-      wordLength: this.state.wordLength,
-      markovOrder: this.state.markovOrder,
-      wordCount: this.state.wordCount,
-    };
-  };
 
   render() {
     return (
       <Container fluid>
         <Row className="header-row">
           <header className="app-header col-12">
-            <Navbar className="top-banner offset-md-1 col-md-10">
+            <Navbar className="top-banner">
               <NavbarBrand className="d-lg-none">
                 <h1 className="app-title-small">[n] gram</h1>
               </NavbarBrand>
@@ -49,15 +40,15 @@ class App extends Component {
                   </div>
                 </Row>
               </div>
-              <div className="corpus-container col-xs-12 col-sm-12 offset-md-1 col-md-6 offset-lg-1 col-lg-6 offset-xl-0 col-xl-7">
+              <div className="corpus-container col-xs-12 col-sm-12 col-md-7">
                 <CorpusText />
               </div>
             </Row>
             <Row className="bottom-banner col-12 justify-content-left">
-              <div className="settings-container d-none d-md-block col-12 offset-md-2 col-md-2">
+              <div className="d-none d-lg-block col-12 col-lg-4">
                 <WordLengthSetting />
               </div>
-              <div className="col-12 col-md-4 col-lg-4 offset-xl-1 col-xl-2">
+              <div className="col-12 offset-md-4 col-md-4 offset-lg-0 col-lg-4 offset-xl-1 col-xl-2">
                 <GenerateButton />
               </div>
             </Row>

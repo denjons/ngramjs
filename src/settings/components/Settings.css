@@ -28,3 +28,8 @@
 .settings-slider:hover {
   cursor: pointer;
 }
+
+.settings-label {
+  color: #fff;
+  text-align: left;
+}
