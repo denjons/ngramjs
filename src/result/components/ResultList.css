@@ -1,9 +1,15 @@
 .listItem {
   list-style: none;
   text-align: center;
-  padding: 2px 5px 2px 5px;
-  margin: 0px;
-  border: 1px dashed chocolate;
+  padding: 4px 6px 4px 6px;
+  margin: 2px;
+  border: none;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.listItem:hover {
+  cursor: pointer;
 }
 
 .list {
