@@ -31,11 +31,11 @@ class App extends Component {
                 <h1 className="app-title-small">[n] gram</h1>
               </NavbarBrand>
               <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
+                <Nav className="ml-auto">
                   <NavDropdown
-                    className="settings-dropdown"
                     title="Settings"
                     id="basic-nav-dropdown"
+                    drop="left"
                   >
                     <NavDropdown.ItemText className="settings-dropdown-item">
                       <SettingsSlider
@@ -69,6 +69,7 @@ class App extends Component {
                     <h1 className="app-title-n glow">[n]</h1>
                     <h1 className="app-title-gram glow">gram</h1>
                   </div>
+                  <h1 className="app-subtitle col-12">Word Generator</h1>
                 </Row>
               </div>
               <div className="corpus-container col-12 col-lg-7">

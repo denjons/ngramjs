@@ -81,7 +81,10 @@ body {
 }
 
 .app-subtitle {
-  font-size: 20px;
+  color: #fff;
+  font-size: 30px;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .corpus-container {
