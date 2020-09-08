@@ -6,28 +6,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.header-row {
-  background-color: transparent;
-  min-height: 60vh;
-}
-
-.app-header {
-  color: #323635;
-  background-image: linear-gradient(
-    to bottom right,
-    rgb(149, 209, 191),
-    #e4b2cb
-  );
-  background-size: 120% 120%;
-}
-
-.top-banner {
-  background-color: transparent;
-  min-height: 10%;
-}
-
-.app-header-content {
-  height: 75%;
+.dropleft.nav-item a {
+  color: #fff !important;
 }
 
 .settings-dropdown {
@@ -40,6 +20,33 @@ body {
   width: 300px;
   padding: 0;
   margin: 0;
+}
+
+.header-row {
+  background-color: transparent;
+  min-height: 60vh;
+}
+
+.app-header {
+  min-height: 60vh;
+  padding-top: 7vh;
+  color: #323635;
+  height: 100%;
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(149, 209, 191),
+    #e4b2cb
+  );
+  background-size: 120% 120%;
+}
+
+.top-banner {
+  background-color: #323635;
+  height: 50px;
+}
+
+.app-header-content {
+  height: 45vh;
 }
 
 .bottom-banner {

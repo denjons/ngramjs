@@ -25,43 +25,43 @@ class App extends Component {
     return (
       <Container fluid>
         <Row className="header-row">
+          <Navbar className="top-banner col-12 settings-dropdown-button">
+            <NavbarBrand className="d-lg-none">
+              <h1 className="app-title-small">[n] gram</h1>
+            </NavbarBrand>
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ml-auto">
+                <NavDropdown
+                  title="Settings"
+                  id="basic-nav-dropdown"
+                  drop="left"
+                >
+                  <NavDropdown.ItemText className="settings-dropdown-item">
+                    <SettingsSlider
+                      name="word-length"
+                      label="Word Length"
+                      propertyName="wordLength"
+                      minValue={4}
+                      maxValue={20}
+                      defaultValue={7}
+                    />
+                  </NavDropdown.ItemText>
+                  <NavDropdown.ItemText className="settings-dropdown-item">
+                    <SettingsSlider
+                      name="word-count"
+                      label="Result Count"
+                      propertyName="wordCount"
+                      minValue={5}
+                      maxValue={40}
+                      defaultValue={10}
+                    />
+                  </NavDropdown.ItemText>
+                  <NavDropdown.Divider />
+                </NavDropdown>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
           <header className="app-header col-12">
-            <Navbar className="top-banner">
-              <NavbarBrand className="d-lg-none">
-                <h1 className="app-title-small">[n] gram</h1>
-              </NavbarBrand>
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="ml-auto">
-                  <NavDropdown
-                    title="Settings"
-                    id="basic-nav-dropdown"
-                    drop="left"
-                  >
-                    <NavDropdown.ItemText className="settings-dropdown-item">
-                      <SettingsSlider
-                        name="word-length"
-                        label="Word Length"
-                        propertyName="wordLength"
-                        minValue={4}
-                        maxValue={20}
-                        defaultValue={7}
-                      />
-                    </NavDropdown.ItemText>
-                    <NavDropdown.ItemText className="settings-dropdown-item">
-                      <SettingsSlider
-                        name="word-count"
-                        label="Result Count"
-                        propertyName="wordCount"
-                        minValue={5}
-                        maxValue={40}
-                        defaultValue={10}
-                      />
-                    </NavDropdown.ItemText>
-                    <NavDropdown.Divider />
-                  </NavDropdown>
-                </Nav>
-              </Navbar.Collapse>
-            </Navbar>
             <Row className="app-header-content justify-content-left">
               <div className="title-container d-none d-lg-block offset-xs-4 col-xs-4 offset-sm-4 col-sm-4 offset-md-0 col-md-4 offset-lg-0 col-lg-4 offset-xl-0 col-xl-4">
                 <Row className="justify-content-center col-12">
@@ -76,9 +76,8 @@ class App extends Component {
                 <CorpusText />
               </div>
             </Row>
-            <Row className="bottom-banner col-12 justify-content-left">
-              <div className="d-none d-lg-block col-12 col-lg-4"></div>
-              <div className="col-12 offset-md-4 col-md-4 offset-lg-0 col-lg-4 offset-xl-1 col-xl-2">
+            <Row className="justify-content-center">
+              <div className="col-12 col-md-4 col-lg-4 col-xl-2">
                 <GenerateButton />
               </div>
             </Row>
