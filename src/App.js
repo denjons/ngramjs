@@ -11,13 +11,17 @@ import { Navbar, NavbarBrand, Nav, NavDropdown } from "react-bootstrap";
 import SettingsSlider from "./settings/components/SettingsSlider";
 
 class App extends Component {
+  defaultWordLength = 12;
+  defaultMarkovOrder = 2;
+  deafultWordCount = 20;
+
   constructor(props) {
     super(props);
 
     this.WordGeneratorService = new WordGeneratorService({
-      wordLength: 7,
-      markovOrder: 2,
-      wordCount: 10,
+      wordLength: this.defaultWordLength,
+      markovOrder: this.defaultMarkovOrder,
+      wordCount: this.deafultWordCount,
     });
   }
 
@@ -26,7 +30,7 @@ class App extends Component {
       <Container fluid>
         <Row className="header-row">
           <Navbar className="top-banner col-12 settings-dropdown-button">
-            <NavbarBrand className="d-lg-none">
+            <NavbarBrand>
               <h1 className="app-title-small">[n] gram</h1>
             </NavbarBrand>
             <Navbar.Collapse id="basic-navbar-nav">
@@ -43,7 +47,7 @@ class App extends Component {
                       propertyName="wordLength"
                       minValue={4}
                       maxValue={20}
-                      defaultValue={7}
+                      defaultValue={this.defaultWordLength}
                     />
                   </NavDropdown.ItemText>
                   <NavDropdown.ItemText className="settings-dropdown-item">
@@ -53,7 +57,17 @@ class App extends Component {
                       propertyName="wordCount"
                       minValue={5}
                       maxValue={40}
-                      defaultValue={10}
+                      defaultValue={this.deafultWordCount}
+                    />
+                  </NavDropdown.ItemText>
+                  <NavDropdown.ItemText className="settings-dropdown-item">
+                    <SettingsSlider
+                      name="markov-order"
+                      label="Markov Order"
+                      propertyName="markovOrder"
+                      minValue={1}
+                      maxValue={10}
+                      defaultValue={this.defaultMarkovOrder}
                     />
                   </NavDropdown.ItemText>
                   <NavDropdown.Divider />
