@@ -11,7 +11,7 @@ class SentenceGenerator {
     for (var i = 0; i < count; i++) {
       var startNode = this.markovChain.getRandomStart();
       sentences.push(
-        this.generateWord(
+        this.generateSentence(
           length - this.markovChain.getMarkovOrder(),
           startNode,
           startNode

@@ -102,6 +102,7 @@ body {
 .result-row {
   min-height: 40vh;
   padding-top: 1cm;
+  padding-bottom: 1cm;
   background-color: #e3e3e3;
 }
 

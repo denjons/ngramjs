@@ -1,4 +1,5 @@
-import Corpus from "../model/Corpus";
+import WordCorpus from "../model/WordCorpus";
+import SentenceCorpus from "../model/SentenceCorpus";
 import TextUtils from "../../utils/TextUtils";
 import generateResultSubject from "../model/GenerateResultSubject";
 import generateCorpusSubject from "../model/GenerateCorpusSubject";
@@ -8,8 +9,7 @@ class WordGeneratorService {
   constructor(config) {
     this.config = config;
 
-    console.log("attaching to subjects");
-    generateCorpusSubject.attach(this.onGenerateWords);
+    generateCorpusSubject.attach(this.onGenerateCorpus);
     configurationEventSubject.attach(this.onReconfigure);
   }
 
@@ -17,7 +17,7 @@ class WordGeneratorService {
     this.config[config.property] = config.value;
   };
 
-  onGenerateCorpus(text) {
+  onGenerateCorpus = (text) => {
     if (this.config.generate === "words") {
       this.onGenerateWords(text);
     } else if (this.config.generate === "sentences") {
@@ -25,11 +25,10 @@ class WordGeneratorService {
     } else {
       console.error("config.generate is not set: " + this.config.generate);
     }
-  }
+  };
 
   onGenerateWords = (text) => {
-    console.info("onGenerateWords");
-    let words = Corpus.generateLetterCorpus(
+    let words = WordCorpus.generateLetterCorpus(
       text,
       this.config.markovOrder
     ).generateWords(this.config.wordCount + 100, this.config.wordLength);
@@ -38,8 +37,7 @@ class WordGeneratorService {
   };
 
   onGenerateSentences = (text) => {
-    console.info("onGenerateSentences");
-    let sentences = Corpus.generateWordCorpus(
+    let sentences = SentenceCorpus.generateWordCorpus(
       text,
       this.config.markovOrder
     ).generateSentences(this.config.wordCount + 100, this.config.wordLength);

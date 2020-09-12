@@ -9,19 +9,16 @@ function ResultList() {
 
   useEffect(() => {
     generateResultSubject.attach(onWordsGenerated);
-    console.log(generateResultSubject);
     return () => {
       generateResultSubject.detach(onWordsGenerated);
     };
   });
 
   const onWordsGenerated = (words) => {
-    console.info("onWordsGenerated");
     setCurrentWords(words);
   };
 
   const clicked = (word) => {
-    console.log(word);
     resultListSubject.notify(word);
     setCurrentWords(currentWords.filter((w) => w !== word));
   };

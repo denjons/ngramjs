@@ -18,7 +18,6 @@ function CorpusText() {
   };
 
   const onGenerateButtonClicked = (event) => {
-    console.info("onGenerateButtonClicked");
     if (currentText.length > 0) {
       generateCorpusSubject.notify(currentText);
     }

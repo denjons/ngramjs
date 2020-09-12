@@ -1,8 +1,7 @@
 import MarkovChain from "./MarkovChain";
 import WordGenerator from "./WordGenerator";
-import SentenceGenerator from "./SentenceGenerator";
 
-class Corpus {
+class WordCorpus {
   generateLetterCorpus = (text, markovOrder) => {
     let markovChain = new MarkovChain(markovOrder);
     let pos = 0;
@@ -29,36 +28,8 @@ class Corpus {
     }
     return new WordGenerator(markovChain);
   };
-
-  generateWordCorpus = (text, markovOrder) => {
-    let markovChain = new MarkovChain(markovOrder);
-    let pos = 0;
-    let addedWords = 0;
-    while (pos < text.length) {
-      let range = pos;
-      while (
-        range < text.length &&
-        text[range] !== " " &&
-        text[range] !== "." &&
-        text[range] !== "!" &&
-        text[range] !== "?"
-      ) {
-        range++;
-      }
-      // add any last range to markov chain if it was increased from pos.
-      if (range > pos) {
-        markovChain.addNode(text.substring(pos, range + 1));
-        addedWords++;
-      }
-      if (addedWords % markovOrder === 0) {
-        markovChain.startNewWord();
-      }
-      pos = range + 1;
-    }
-    return new SentenceGenerator(markovChain);
-  };
 }
 
-const corpus = new Corpus();
+const wordCorpus = new WordCorpus();
 
-export default corpus;
+export default wordCorpus;

@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import WordGeneratorService from "./corpus/service/WordGeneratorService";
 import { Navbar, NavbarBrand, Nav, NavDropdown } from "react-bootstrap";
 import SettingsSlider from "./settings/components/SettingsSlider";
+import SettingsToggleButton from "./settings/components/SettingsToggleButton";
 
 class App extends Component {
   defaultWordLength = 12;
@@ -73,6 +74,18 @@ class App extends Component {
                     />
                   </NavDropdown.ItemText>
                   <NavDropdown.Divider />
+                  <NavDropdown.ItemText className="settings-dropdown-item">
+                    <SettingsToggleButton
+                      name="generate-toggle-button"
+                      propertyName="generate"
+                      label="Generate:"
+                      values={[
+                        { name: "Words", value: "words" },
+                        { name: "Sentences", value: "sentences" },
+                      ]}
+                      defaultValue="words"
+                    />
+                  </NavDropdown.ItemText>
                 </NavDropdown>
               </Nav>
             </Navbar.Collapse>

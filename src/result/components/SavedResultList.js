@@ -8,7 +8,6 @@ function SavedResultList() {
 
   useEffect(() => {
     resultListSubject.attach(update);
-    console.log(resultListSubject);
     return () => {
       resultListSubject.detach(update);
     };
