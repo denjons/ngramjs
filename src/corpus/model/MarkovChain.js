@@ -27,39 +27,26 @@ class MarkovChain {
     this.workingSet = null;
   };
 
-  /**
-   * Generates a list of words from corpus
-   */
-  generateWords = (count, length) => {
-    var words = [];
-    for (var i = 0; i < count; i++) {
-      var startNode = this.getRandomElementOf(this.startNodes);
-      words.push(
-        this.generateWord(length - this.markovOrder, startNode, startNode)
-      );
-    }
-    return words;
+  getRandomStart = () => {
+    return this.getRandomElementOf(this.startNodes);
   };
 
-  /**
-   * Sub-routine for generate words
-   */
-  generateWord = (length, node, word) => {
-    if (length <= 0) {
-      return word;
-    }
+  getNextRandomNode = (node) => {
     var nextNodes = this.nodeChain.get(node);
+
     if (nextNodes == null || nextNodes.length === 0) {
-      return word;
+      return null;
     }
-    var nextNode = this.getRandomElementOf(nextNodes);
-    word = word.concat(nextNode);
-    return this.generateWord(length - this.markovOrder, nextNode, word);
+    return this.getRandomElementOf(nextNodes);
   };
 
   getRandomElementOf(list) {
     return list[Math.round((list.length - 1) * Math.random())];
   }
+
+  getMarkovOrder = () => {
+    return this.markovOrder;
+  };
 }
 
 export default MarkovChain;

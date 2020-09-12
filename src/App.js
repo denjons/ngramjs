@@ -14,6 +14,7 @@ class App extends Component {
   defaultWordLength = 12;
   defaultMarkovOrder = 2;
   deafultWordCount = 20;
+  defaultGenerate = "words";
 
   constructor(props) {
     super(props);
@@ -22,6 +23,7 @@ class App extends Component {
       wordLength: this.defaultWordLength,
       markovOrder: this.defaultMarkovOrder,
       wordCount: this.deafultWordCount,
+      generate: this.defaultGenerate,
     });
   }
 

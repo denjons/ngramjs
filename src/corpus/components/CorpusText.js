@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CorpusText.css";
 import generateClickEventSubject from "../model/GenerateClickEventSubject";
-import generateWordsSubject from "../model/GenerateWordsSubject";
+import generateCorpusSubject from "../model/GenerateCorpusSubject";
 
 function CorpusText() {
   const [currentText, setCurrentText] = useState("");
@@ -20,7 +20,7 @@ function CorpusText() {
   const onGenerateButtonClicked = (event) => {
     console.info("onGenerateButtonClicked");
     if (currentText.length > 0) {
-      generateWordsSubject.notify(currentText);
+      generateCorpusSubject.notify(currentText);
     }
   };
 

@@ -1,4 +1,4 @@
-class GenerateWordsSubject {
+class GenerateCorpusSubject {
   constructor() {
     this.observers = new Map();
   }
@@ -16,6 +16,6 @@ class GenerateWordsSubject {
   }
 }
 
-const generateWordsSubject = new GenerateWordsSubject();
+const generateCorpusSubject = new GenerateCorpusSubject();
 
-export default generateWordsSubject;
+export default generateCorpusSubject;

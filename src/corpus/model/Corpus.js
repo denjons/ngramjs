@@ -1,44 +1,61 @@
 import MarkovChain from "./MarkovChain";
+import WordGenerator from "./WordGenerator";
+import SentenceGenerator from "./SentenceGenerator";
 
 class Corpus {
-  /**
-   * Generate corpus for sentences
-   */
-  generateWordCorpus = () => {
-    this.text
-      .split(" ")
-      .map((s) => s.replaceAll("/W/g", ""))
-      .filter((s) => s.length() > this.markovOrder)
-      .forEach((elm) => {
-        this.markovChain.addNode(elm.trim());
-        this.markovChain.startNewWord();
-      });
-  };
-
-  /**
-   * Generate corpus for words
-   */
   generateLetterCorpus = (text, markovOrder) => {
     let markovChain = new MarkovChain(markovOrder);
-    text
-      .split(" ")
-      .map((s) => s.replace(/[\W_]+/g, "").trim())
-      .filter((elm) => elm.length >= markovOrder)
-      .forEach((elm) => this.splitWord(elm, markovOrder, markovChain));
-    return markovChain;
+    let pos = 0;
+    while (pos < text.length) {
+      // take a range of text from current pos until hitting a word-ender/divider, like spaces and dots, etc.
+      let range = pos;
+      while (
+        range < Math.min(pos + markovOrder, text.length) &&
+        text[range] !== " "
+      ) {
+        // add current range everytime it passes markov order, then move pos up to that point
+        range++;
+        if ((range - pos) % markovOrder === 0) {
+          markovChain.addNode(text.substring(pos, range));
+          pos = range;
+        }
+      }
+      // add any last range to markov chain if it was increased from pos.
+      if (range > pos) {
+        markovChain.addNode(text.substring(pos, range));
+      }
+      markovChain.startNewWord();
+      pos = range + 1;
+    }
+    return new WordGenerator(markovChain);
   };
 
-  /**
-   * Sub-routine for word corpus
-   */
-  splitWord = (word, markovOrder, markovChain) => {
+  generateWordCorpus = (text, markovOrder) => {
+    let markovChain = new MarkovChain(markovOrder);
     let pos = 0;
-    while (pos < word.length) {
-      let range = Math.min(word.length - pos, markovOrder);
-      markovChain.addNode(word.substring(pos, pos + range));
-      pos += markovOrder;
+    let addedWords = 0;
+    while (pos < text.length) {
+      let range = pos;
+      while (
+        range < text.length &&
+        text[range] !== " " &&
+        text[range] !== "." &&
+        text[range] !== "!" &&
+        text[range] !== "?"
+      ) {
+        range++;
+      }
+      // add any last range to markov chain if it was increased from pos.
+      if (range > pos) {
+        markovChain.addNode(text.substring(pos, range + 1));
+        addedWords++;
+      }
+      if (addedWords % markovOrder === 0) {
+        markovChain.startNewWord();
+      }
+      pos = range + 1;
     }
-    markovChain.startNewWord();
+    return new SentenceGenerator(markovChain);
   };
 }
 
