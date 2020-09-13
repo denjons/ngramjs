@@ -116,7 +116,7 @@ class App extends Component {
           <div className="col-12 offset-md-1 col-md-3 offset-lg-1 col-lg-3 offset-xl-0 col-xl-3">
             <SavedResultList />
           </div>
-          <div className="col-12 offset-md-1 col-md-7 offset-lg-1 col-lg-7 offset-xl-1 col-xl-7">
+          <div className="col-12 offset-md-1 col-md-6 offset-lg-1 col-lg-6 offset-xl-1 col-xl-6">
             <ResultList />
           </div>
         </Row>

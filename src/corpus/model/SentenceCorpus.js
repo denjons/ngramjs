@@ -14,24 +14,32 @@ class SentenceCorpus {
 
   findNextWord = (markovChain, text, pos) => {
     let range = pos;
-    while (
-      range < text.length &&
-      text[range] !== " " &&
-      text[range] !== "." &&
-      text[range] !== "!" &&
-      text[range] !== "?"
-    ) {
+    while (range < text.length && this.isSkipCharacter(text, range)) {
       range++;
     }
 
     if (range > pos) {
       markovChain.addNode(text.substring(pos, range));
     }
-    if (text[range] === "." || text[range] === "!" || text[range] === "?") {
+    if (this.isEndCharacter(text, range)) {
       markovChain.startNewWord();
     }
     return range + 1;
   };
+
+  isEndCharacter(text, pos) {
+    return text[pos] === "." || text[pos] === "!" || text[pos] === "?";
+  }
+
+  isSkipCharacter(text, pos) {
+    return (
+      text[pos] !== " " &&
+      text[pos] !== "\n" &&
+      text[pos] !== "." &&
+      text[pos] !== "!" &&
+      text[pos] !== "?"
+    );
+  }
 }
 
 const sentenceCorpus = new SentenceCorpus();
