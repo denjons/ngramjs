@@ -120,7 +120,16 @@ class App extends Component {
             <ResultList />
           </div>
         </Row>
-        <Row className="footer-row justify-content-center"></Row>
+        <Row className="footer-row justify-content-center">
+          <div className="footer-text col-10 col-md-6">
+            <h2>ngramjs</h2>
+            <p>
+              n-gram word generator, or ngramjs as the github project is called,
+              is a simple random word and sentence generator based on the n-gram
+              model. The project is built using React and React-bootstrap.
+            </p>
+          </div>
+        </Row>
       </Container>
     );
   }
