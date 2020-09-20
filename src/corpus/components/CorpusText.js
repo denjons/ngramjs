@@ -3,8 +3,8 @@ import "./CorpusText.css";
 import generateClickEventSubject from "../model/GenerateClickEventSubject";
 import generateCorpusSubject from "../model/GenerateCorpusSubject";
 
-function CorpusText() {
-  const [currentText, setCurrentText] = useState("");
+function CorpusText({ value, placeholder, rows, cols }) {
+  const [currentText, setCurrentText] = useState(value);
 
   useEffect(() => {
     generateClickEventSubject.attach(onGenerateButtonClicked);
@@ -25,11 +25,12 @@ function CorpusText() {
 
   return (
     <textarea
-      placeholder="Enter corpus text here ..."
+      placeholder={placeholder}
       className="corpus-text col-12"
       onChange={(e) => onChanged(e.target.value)}
-      rows="10"
-      cols="50"
+      rows={rows}
+      cols={cols}
+      value={currentText}
     />
   );
 }

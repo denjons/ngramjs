@@ -17,6 +17,11 @@ class App extends Component {
   deafultWordCount = 20;
   defaultGenerate = "words";
 
+  defaultText =
+    "example jellyfish pancake balloon sausage chocolate cream beans cowboy cartoon dancer party super shrimp warrior waffles award wacky gorilla monkey" +
+    " business alien smelly karate kid phantom kinky cleaner round granade hamburger strawberry balloon banana terminator fart brain sticky fingers" +
+    " engineer pees football player trooper graceful joker transaction figure bandit bandana fantastic chuck norris melon robot doctor frankenstein";
+
   constructor(props) {
     super(props);
 
@@ -102,7 +107,12 @@ class App extends Component {
                 </Row>
               </div>
               <div className="corpus-container col-12 col-lg-7">
-                <CorpusText />
+                <CorpusText
+                  value={this.defaultText}
+                  placeholder="Enter Corpus text here ... "
+                  rows={10}
+                  cols={50}
+                />
               </div>
             </Row>
             <Row className="justify-content-center">
