@@ -1,12 +1,12 @@
-import MarkovChain from "./MarkovChain";
+import NodeMatrix from "./NodeMatrix";
 import WordGenerator from "./WordGenerator";
 
-class WordCorpus {
-  generateLetterCorpus = (text, markovOrder) => {
-    let markovChain = new MarkovChain(markovOrder);
+class WordMarkovChain {
+  generateLetterCorpus = (corpus, markovOrder) => {
+    let markovChain = new NodeMatrix(markovOrder);
     let pos = 0;
-    while (pos < text.length) {
-      pos = this.findNextWord(markovChain, text, pos);
+    while (pos < corpus.length) {
+      pos = this.findNextWord(markovChain, corpus, pos);
       markovChain.startNewWord();
     }
     return new WordGenerator(markovChain);
@@ -45,6 +45,6 @@ class WordCorpus {
   }
 }
 
-const wordCorpus = new WordCorpus();
+const wordCorpus = new WordMarkovChain();
 
 export default wordCorpus;

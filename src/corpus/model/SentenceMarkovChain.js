@@ -1,9 +1,9 @@
-import MarkovChain from "./MarkovChain";
+import NodeMatrix from "./NodeMatrix";
 import SentenceGenerator from "./SentenceGenerator";
 
-class SentenceCorpus {
+class SentenceMarkovChain {
   generateWordCorpus = (text, markovOrder) => {
-    let markovChain = new MarkovChain(markovOrder);
+    let markovChain = new NodeMatrix(markovOrder);
     let pos = 0;
     while (pos < text.length) {
       pos = this.findNextWord(markovChain, text, pos);
@@ -42,6 +42,6 @@ class SentenceCorpus {
   }
 }
 
-const sentenceCorpus = new SentenceCorpus();
+const sentenceCorpus = new SentenceMarkovChain();
 
 export default sentenceCorpus;
