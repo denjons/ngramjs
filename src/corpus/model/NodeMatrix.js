@@ -1,4 +1,4 @@
-class MarkovChain {
+class NodeMatrix {
   constructor(markovOrder) {
     this.markovOrder = markovOrder;
     this.nodeChain = new Map();
@@ -49,4 +49,4 @@ class MarkovChain {
   };
 }
 
-export default MarkovChain;
+export default NodeMatrix;
