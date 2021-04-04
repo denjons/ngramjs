@@ -2,8 +2,9 @@
  *  Generates words from populated markov chain
  */
 class WordGenerator {
-  constructor(MarkovChain) {
-    this.markovChain = MarkovChain;
+  constructor(nodeMatrix, markovOrder) {
+    this.markovOrder = markovOrder;
+    this.nodeMatrix = nodeMatrix;
   }
 
   /**
@@ -13,10 +14,10 @@ class WordGenerator {
     var words = [];
     for (var i = 0; i < count; i++) {
       this.count = 0;
-      var startNode = this.markovChain.getRandomStart();
+      var startNode = this.nodeMatrix.getRandomStart();
       words.push(
         this.generateWord(
-          length - this.markovChain.getMarkovOrder(),
+          length - this.markovOrder,
           startNode,
           startNode
         )
@@ -32,7 +33,7 @@ class WordGenerator {
     if (length <= 0) {
       return word;
     }
-    var next = this.markovChain.getNextRandomNode(node);
+    var next = this.nodeMatrix.getNextRandomNode(node);
 
     if (next == null) {
       return word;
@@ -40,7 +41,7 @@ class WordGenerator {
 
     word = word.concat(next);
     return this.generateWord(
-      length - this.markovChain.getMarkovOrder(),
+      length - this.markovOrder,
       next,
       word
     );

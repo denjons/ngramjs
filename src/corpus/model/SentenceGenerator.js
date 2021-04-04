@@ -1,6 +1,7 @@
 class SentenceGenerator {
-  constructor(markovChain) {
-    this.markovChain = markovChain;
+  constructor(nodeMatrix, markovOrder) {
+    this.markovOrder = markovOrder;
+    this.nodeMatrix = nodeMatrix;
   }
 
   /**
@@ -9,10 +10,10 @@ class SentenceGenerator {
   generateSentences = (count, length) => {
     var sentences = [];
     for (var i = 0; i < count; i++) {
-      var startNode = this.markovChain.getRandomStart();
+      var startNode = this.nodeMatrix.getRandomStart();
       sentences.push(
         this.generateSentence(
-          length - this.markovChain.getMarkovOrder(),
+          length - this.markovOrder,
           startNode,
           startNode
         )
@@ -28,7 +29,7 @@ class SentenceGenerator {
     if (length <= 0) {
       return sentence;
     }
-    var next = this.markovChain.getNextRandomNode(node);
+    var next = this.nodeMatrix.getNextRandomNode(node);
 
     if (next == null) {
       return sentence;
@@ -36,7 +37,7 @@ class SentenceGenerator {
 
     sentence = sentence.concat(" " + next);
     return this.generateSentence(
-      length - this.markovChain.getMarkovOrder(),
+      length - this.markovOrder,
       next,
       sentence
     );

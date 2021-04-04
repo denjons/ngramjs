@@ -3,26 +3,26 @@ import SentenceGenerator from "./SentenceGenerator";
 
 class SentenceMarkovChain {
   generateWordCorpus = (text, markovOrder) => {
-    let markovChain = new NodeMatrix(markovOrder);
+    let nodeMatrix = new NodeMatrix();
     let pos = 0;
     while (pos < text.length) {
-      pos = this.findNextWord(markovChain, text, pos);
+      pos = this.findNextWord(nodeMatrix, text, pos);
     }
-    console.log(markovChain);
-    return new SentenceGenerator(markovChain);
+ 
+    return new SentenceGenerator(nodeMatrix, markovOrder);
   };
 
-  findNextWord = (markovChain, text, pos) => {
+  findNextWord = (nodeMatrix, text, pos) => {
     let range = pos;
     while (range < text.length && this.isSkipCharacter(text, range)) {
       range++;
     }
 
     if (range > pos) {
-      markovChain.addNode(text.substring(pos, range));
+      nodeMatrix.addNode(text.substring(pos, range));
     }
     if (this.isEndCharacter(text, range)) {
-      markovChain.startNewWord();
+      nodeMatrix.startNewWord();
     }
     return range + 1;
   };

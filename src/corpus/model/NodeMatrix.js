@@ -1,6 +1,5 @@
 class NodeMatrix {
-  constructor(markovOrder) {
-    this.markovOrder = markovOrder;
+  constructor() {
     this.nodeChain = new Map();
     this.workingSet = null;
     this.startNodes = [];
