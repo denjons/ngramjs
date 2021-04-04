@@ -1,50 +1,51 @@
-import NodeMatrix from "./NodeMatrix";
-import WordGenerator from "./WordGenerator";
-
+/**
+ *  Generates words from populated node matrix
+ */
 class WordMarkovChain {
-
-  generateLetterCorpus = (corpus, markovOrder) => {
-    let nodeMatrix = new NodeMatrix();
-    let pos = 0;
-    while (pos < corpus.length) {
-      pos = this.findNextWord(nodeMatrix, corpus, pos, markovOrder);
-      nodeMatrix.startNewWord();
-    }
-    return new WordGenerator(nodeMatrix, markovOrder);
-  };
-
-  findNextWord = (nodeMatrix, text, pos, markovOrder) => {
-    let range = pos;
-    while (
-      range < Math.min(pos + markovOrder, text.length) &&
-      this.isSkipCharacter(text, range)
-    ) {
-      // add current range everytime it passes markov order, then move pos up to that point
-      range++;
-      if ((range - pos) % markovOrder === 0) {
-        nodeMatrix.addNode(text.substring(pos, range));
-        pos = range;
-      }
-    }
-    // add any last range to markov chain if it was increased from pos.
-    if (range > pos) {
-      nodeMatrix.addNode(text.substring(pos, range));
-    }
-    return range + 1;
-  };
-
-  isSkipCharacter(text, pos) {
-    return (
-      text[pos] !== " " &&
-      text[pos] !== "\n" &&
-      text[pos] !== "." &&
-      text[pos] !== "," &&
-      text[pos] !== "!" &&
-      text[pos] !== "?"
-    );
+  constructor(nodeMatrix, markovOrder) {
+    this.markovOrder = markovOrder;
+    this.nodeMatrix = nodeMatrix;
   }
+
+  /**
+   * Generates a list of words from populated markov chain
+   */
+  generateWords = (count, length) => {
+    var words = [];
+    for (var i = 0; i < count; i++) {
+      this.count = 0;
+      var startNode = this.nodeMatrix.getRandomStart();
+      words.push(
+        this.generateWord(
+          length - this.markovOrder,
+          startNode,
+          startNode
+        )
+      );
+    }
+    return words;
+  };
+
+  /**
+   * Sub-routine for generate words
+   */
+  generateWord = (length, node, word) => {
+    if (length <= 0) {
+      return word;
+    }
+    var next = this.nodeMatrix.getNextRandomNode(node);
+
+    if (next == null) {
+      return word;
+    }
+
+    word = word.concat(next);
+    return this.generateWord(
+      length - this.markovOrder,
+      next,
+      word
+    );
+  };
 }
 
-const wordCorpus = new WordMarkovChain();
-
-export default wordCorpus;
+export default WordMarkovChain;

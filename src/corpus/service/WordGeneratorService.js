@@ -1,5 +1,5 @@
-import WordMarkovChain from "../model/WordMarkovChain";
-import SentenceMarkovChain from "../model/SentenceMarkovChain";
+import WordCorpus from "../model/WordCorpus";
+import SentenceCorous from "../model/SentenceCorpus";
 import TextUtils from "../../utils/TextUtils";
 import generateResultSubject from "../model/GenerateResultSubject";
 import generateCorpusSubject from "../model/GenerateCorpusSubject";
@@ -28,7 +28,7 @@ class WordGeneratorService {
   };
 
   onGenerateWords = (text) => {
-    let words = WordMarkovChain.generateLetterCorpus(
+    let words = WordCorpus.generateMarkovChain(
       text,
       this.config.markovOrder
     ).generateWords(this.config.wordCount + 100, this.config.wordLength);
@@ -37,7 +37,7 @@ class WordGeneratorService {
   };
 
   onGenerateSentences = (text) => {
-    let sentences = SentenceMarkovChain.generateWordCorpus(
+    let sentences = SentenceCorous.generateMarkovChain(
       text,
       this.config.markovOrder
     ).generateSentences(this.config.wordCount + 100, this.config.wordLength);

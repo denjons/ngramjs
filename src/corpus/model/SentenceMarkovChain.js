@@ -1,47 +1,47 @@
-import NodeMatrix from "./NodeMatrix";
-import SentenceGenerator from "./SentenceGenerator";
-
 class SentenceMarkovChain {
-  generateWordCorpus = (text, markovOrder) => {
-    let nodeMatrix = new NodeMatrix();
-    let pos = 0;
-    while (pos < text.length) {
-      pos = this.findNextWord(nodeMatrix, text, pos);
-    }
- 
-    return new SentenceGenerator(nodeMatrix, markovOrder);
-  };
-
-  findNextWord = (nodeMatrix, text, pos) => {
-    let range = pos;
-    while (range < text.length && this.isSkipCharacter(text, range)) {
-      range++;
-    }
-
-    if (range > pos) {
-      nodeMatrix.addNode(text.substring(pos, range));
-    }
-    if (this.isEndCharacter(text, range)) {
-      nodeMatrix.startNewWord();
-    }
-    return range + 1;
-  };
-
-  isEndCharacter(text, pos) {
-    return text[pos] === "." || text[pos] === "!" || text[pos] === "?";
+  constructor(nodeMatrix, markovOrder) {
+    this.markovOrder = markovOrder;
+    this.nodeMatrix = nodeMatrix;
   }
 
-  isSkipCharacter(text, pos) {
-    return (
-      text[pos] !== " " &&
-      text[pos] !== "\n" &&
-      text[pos] !== "." &&
-      text[pos] !== "!" &&
-      text[pos] !== "?"
+  /**
+   * Generates a list of words from populated NodeMatrix
+   */
+  generateSentences = (count, length) => {
+    var sentences = [];
+    for (var i = 0; i < count; i++) {
+      var startNode = this.nodeMatrix.getRandomStart();
+      sentences.push(
+        this.generateSentence(
+          length - this.markovOrder,
+          startNode,
+          startNode
+        )
+      );
+    }
+    return sentences;
+  };
+
+  /**
+   * Sub-routine for generate words
+   */
+  generateSentence = (length, node, sentence) => {
+    if (length <= 0) {
+      return sentence;
+    }
+    var next = this.nodeMatrix.getNextRandomNode(node);
+
+    if (next == null) {
+      return sentence;
+    }
+
+    sentence = sentence.concat(" " + next);
+    return this.generateSentence(
+      length - this.markovOrder,
+      next,
+      sentence
     );
-  }
+  };
 }
 
-const sentenceCorpus = new SentenceMarkovChain();
-
-export default sentenceCorpus;
+export default SentenceMarkovChain;
